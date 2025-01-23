@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Missions SpaceX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #1a73e8;
+        }
+        .stats {
+            background-color: white;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .mission-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .mission-card {
+            background-color: white;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .mission-success {
+            color: green;
+        }
+        .mission-failure {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Missions SpaceX</h1>
+    
+    <div class="stats">
+        <h2>Statistiques des Missions</h2>
+        <p>Nombre Total de Missions : {{ stats.total }}</p>
+        <p>Missions Réussies : <span class="mission-success">{{ stats.successful }}</span></p>
+        <p>Missions Échouées : <span class="mission-failure">{{ stats.failed }}</span></p>
+    </div>
+
+    <div class="mission-list">
+        {% for mission in missions %}
+        <div class="mission-card">
+            <h3>{{ mission.name }}</h3>
+            <p><strong>Date :</strong> {{ mission.date.strftime('%d-%m-%Y') }}</p>
+            <p>
+                <strong>Statut :</strong> 
+                {% if mission.success %}
+                <span class="mission-success">Réussi</span>
+                {% else %}
+                <span class="mission-failure">Échoué</span>
+                {% endif %}
+            </p>
+            {% if mission.details %}
+            <p><strong>Détails :</strong> {{ mission.details }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
